@@ -1,8 +1,8 @@
-﻿using E_Commers.Errors.ErrorResponses;
+﻿using Andreani.Errors.ErrorResponses;
 using System;
 using System.Collections.Generic;
 
-namespace E_Commers.Errors
+namespace Andreani.Errors
 {
     public class ErrorManager
     {

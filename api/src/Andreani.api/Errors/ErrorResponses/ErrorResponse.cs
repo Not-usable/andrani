@@ -2,7 +2,7 @@
 using System;
 using System.Net;
 
-namespace E_Commers.Errors.ErrorResponses
+namespace Andreani.Errors.ErrorResponses
 {
     public abstract class ErrorResponse : IErrorResponse
     {

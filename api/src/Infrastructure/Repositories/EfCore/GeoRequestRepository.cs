@@ -4,7 +4,7 @@ using Infrastructure.Contexts;
 
 namespace Infrastructure.Repository.EfCore
 {
-    public class GeoRequestRepository : GenericEFRepository<Product>, IGeoRequestRepository
+    public class GeoRequestRepository : GenericEFRepository<GeoRequest>, IGeoRequestRepository
     {
         public GeoRequestRepository(BasicDbContext sampleDbContext) : base(sampleDbContext)
         {

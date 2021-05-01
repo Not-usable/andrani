@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace E_Commers.Errors.ErrorResponses
+namespace Andreani.Errors.ErrorResponses
 {
     public interface IErrorResponse
     {

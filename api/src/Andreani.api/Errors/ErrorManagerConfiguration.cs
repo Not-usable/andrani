@@ -1,8 +1,8 @@
 ﻿using Application.Exceptions;
-using E_Commers.Errors.ErrorResponses;
+using Andreani.Errors.ErrorResponses;
 using System.Diagnostics.CodeAnalysis;
 
-namespace E_Commers.Errors
+namespace Andreani.Errors
 {
     [ExcludeFromCodeCoverage]
     public class ErrorManagerConfiguration

@@ -6,7 +6,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
-namespace E_Commers
+namespace Andreani
 {
     [ExcludeFromCodeCoverage]
     public class Program

@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces.Repositories;
 using Infrastructure.Contexts;
+using Infrastructure.MessageQueue;
 using Infrastructure.Repository.EfCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +16,8 @@ namespace Infrastructure.Extensions.ServiceBuilder
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Andreani.api")));
 
             services.AddTransient<IGeoRequestRepository, GeoRequestRepository>();
+
+            services.AddTransient<IQueueClient, RabitQueueClient>();
         }
     }
 }

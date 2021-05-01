@@ -3,7 +3,7 @@ using Application.Exceptions.Serializables;
 using System;
 using System.Collections.Generic;
 
-namespace E_Commers.Errors.ErrorResponses
+namespace Andreani.Errors.ErrorResponses
 {
     public class ModelValidationErrorResponse : ErrorResponse
     {

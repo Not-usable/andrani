@@ -1,5 +1,5 @@
 using Application;
-using E_Commers.Errors.Extensions.ServiceBuilder;
+using Andreani.Errors.Extensions.ServiceBuilder;
 using Infrastructure.Extensions.ServiceBuilder;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,8 +11,9 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics.CodeAnalysis;
+using Andreani.QueueAdapters;
 
-namespace E_Commers
+namespace Andreani
 {
     [ExcludeFromCodeCoverage]
     public class Startup
@@ -57,6 +58,8 @@ namespace E_Commers
             });
 
             services.AddErrorManager();
+
+            services.AddHostedService<GeoReceiver>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

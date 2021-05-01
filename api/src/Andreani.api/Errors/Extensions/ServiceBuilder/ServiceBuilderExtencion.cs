@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
-namespace E_Commers.Errors.Extensions.ServiceBuilder
+namespace Andreani.Errors.Extensions.ServiceBuilder
 {
     [ExcludeFromCodeCoverage]
     public static class ServiceBuilderExtencion

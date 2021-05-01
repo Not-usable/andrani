@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
-namespace E_Commers.Controllers
+namespace Andreani.Controllers
 {
     [ExcludeFromCodeCoverage]
     public abstract class BaseApiController : ControllerBase

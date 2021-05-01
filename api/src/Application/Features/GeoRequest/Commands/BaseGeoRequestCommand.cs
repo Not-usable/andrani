@@ -5,16 +5,16 @@ namespace Application.Features.GeoRequest.Commands
     public abstract class BaseGeoRequestCommand
     {
         [Required]
-        public string Name { get; set; }
+        public string Street { get; set; }
         [Required]
-        public string Description { get; set; }
+        public int Number { get; set; }
         [Required]
-        public string Price { get; set; }
-        public double Discount { get; set; }
+        public string City { get; set; }
         [Required]
-        public string ImageUrl { get; set; }
+        public string PostalCode { get; set; }
         [Required]
-        public int CategoryId { get; set; }
-        public bool SoldOut { get; set; }
+        public string Province { get; set; }
+        [Required]
+        public string State { get; set; }
     }
 }

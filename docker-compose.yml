@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: my-rabbit
+    ports:
+      - 5672:5672
+      - 15672:15672
+  sql:
+    build: ./sql
+    hostname: sql1
+    ports:
+      - 1533:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=<YourStrong@Passw0rd>
+  api:
+    build: ./api
+    hostname: apiGeo
+    ports:
+      - 80:80
+      - 443:443
