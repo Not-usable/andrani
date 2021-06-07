@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.Repositories;
+﻿using Application.Interfaces.MessageQueue;
+using Application.Interfaces.Repositories;
 using Application.Interfaces.Services;
 using Infrastructure.MessageQueue;
 using Microsoft.Extensions.Hosting;
@@ -18,13 +19,13 @@ namespace Andreani.QueueAdapters
         private IConnection _connection;
         private readonly ILogger _logger;
         private readonly IGeoService _service;
-        private readonly IGeoRequestRepository _repository;
+        private readonly IResponseQueueClient _responseQueue;
 
-        public GeoReceiver(ILogger<GeoReceiver> logger, IGeoService service, IGeoRequestRepository repository)
+        public GeoReceiver(ILogger<GeoReceiver> logger, IGeoService service, IResponseQueueClient responseQueue)
         {
             _logger = logger;
             _service = service;
-            _repository = repository;
+            _responseQueue = responseQueue;
             InitializeRabbitMqListener();
         }
 
@@ -59,6 +60,7 @@ namespace Andreani.QueueAdapters
                 //_repository.Update(res);
                 _logger.LogWarning(JsonSerializer.Serialize(res));
 
+                _responseQueue.Send(res);
                 //HandleMessage(updateCustomerFullNameModel);
 
                 _channel.BasicAck(ea.DeliveryTag, false);

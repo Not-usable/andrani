@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 
-namespace Infrastructure.MessageQueue
+namespace Application.Interfaces.MessageQueue
 {
     public interface IQueueClient
     {

@@ -23,6 +23,7 @@ namespace Infrastructure.Extensions.ServiceBuilder
             services.AddTransient<IGeoService, OpenStreetMapService>();
 
             services.AddTransient<IQueueClient, RabitQueueClient>();
+            services.AddTransient<IResponseQueueClient, RabitResponseQueueClient>();
         }
     }
 }

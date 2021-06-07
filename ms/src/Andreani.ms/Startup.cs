@@ -59,7 +59,7 @@ namespace Andreani
 
             services.AddErrorManager();
 
-            services.AddHostedService<GeoReceiverResponse>();
+            services.AddHostedService<GeoReceiver>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
