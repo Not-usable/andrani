@@ -1,11 +1,14 @@
-﻿using RabbitMQ.Client;
+﻿using Domain.Entities;
+using RabbitMQ.Client;
 using System.Text;
+using System.Text.Json;
+using Application.Interfaces.Services;
 
 namespace Infrastructure.MessageQueue
 {
     public class RabitQueueClient : IQueueClient
     {
-        public void Send(int id)
+        public void Send(GeoRequest request)
         {
             var factory = new ConnectionFactory() { HostName = "my-rabbit" };
             using var connection = factory.CreateConnection();
@@ -16,7 +19,18 @@ namespace Infrastructure.MessageQueue
                                  autoDelete: false,
                                  arguments: null);
 
-            var body = Encoding.UTF8.GetBytes(id.ToString());
+            var req = new GeoRequestMessage()
+            {
+                Id = request.Id,
+                City = request.City,
+                Street = request.Street,
+                PostalCode = request.PostalCode,
+                Number = request.Number,
+                State = request.Province,
+                Country = request.State
+            };
+
+            var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(req));
 
             channel.BasicPublish(exchange: "",
                                  routingKey: "geo-queue",

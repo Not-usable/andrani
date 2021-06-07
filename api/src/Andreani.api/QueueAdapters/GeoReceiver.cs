@@ -1,8 +1,12 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Application.Interfaces.Repositories;
+using Application.Interfaces.Services;
+using Infrastructure.MessageQueue;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,10 +17,14 @@ namespace Andreani.QueueAdapters
         private IModel _channel;
         private IConnection _connection;
         private readonly ILogger _logger;
+        private readonly IGeoService _service;
+        private readonly IGeoRequestRepository _repository;
 
-        public GeoReceiver(ILogger<GeoReceiver> logger)
+        public GeoReceiver(ILogger<GeoReceiver> logger, IGeoService service, IGeoRequestRepository repository)
         {
             _logger = logger;
+            _service = service;
+            _repository = repository;
             InitializeRabbitMqListener();
         }
 
@@ -37,17 +45,23 @@ namespace Andreani.QueueAdapters
             stoppingToken.ThrowIfCancellationRequested();
 
             var consumer = new EventingBasicConsumer(_channel);
-            consumer.Received += (ch, ea) =>
+            consumer.Received += async (ch, ea) =>
             {
                 var content = Encoding.UTF8.GetString(ea.Body.ToArray());
 
                 _logger.LogWarning("received: " + content);
 
-                    //var updateCustomerFullNameModel = JsonConvert.DeserializeObject<UpdateCustomerFullNameModel>(content);
-                    int toGeo = int.Parse(content);
-                    //HandleMessage(updateCustomerFullNameModel);
+                //var updateCustomerFullNameModel = JsonConvert.DeserializeObject<UpdateCustomerFullNameModel>(content);
+                var req = JsonSerializer.Deserialize<GeoRequestMessage>(content);
 
-                    _channel.BasicAck(ea.DeliveryTag, false);
+                var res = await _service.CompleteCoordinatesAsync(req);
+
+                //_repository.Update(res);
+                _logger.LogWarning(JsonSerializer.Serialize(res));
+
+                //HandleMessage(updateCustomerFullNameModel);
+
+                _channel.BasicAck(ea.DeliveryTag, false);
             };
 
             _channel.BasicConsume("geo-queue", false, consumer);

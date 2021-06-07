@@ -27,7 +27,7 @@ namespace Application.Features.GeoRequest.Commands
             var entity = _mapper.Map<Domain.Entities.GeoRequest>(request);
             entity.Status = "PROCESANDO";
             var response = await _GeoRequestRepository.AddAsync(entity);
-            _queueClient.Send(entity.Id);
+            _queueClient.Send(response);
             return _mapper.Map<GeoRequestCreatedResponse>(response);
         }
     }

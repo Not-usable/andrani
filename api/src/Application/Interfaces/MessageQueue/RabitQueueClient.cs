@@ -1,7 +1,9 @@
-﻿namespace Infrastructure.MessageQueue
+﻿using Domain.Entities;
+
+namespace Infrastructure.MessageQueue
 {
     public interface IQueueClient
     {
-        void Send(int id);
+        void Send(GeoRequest request);
     }
 }
