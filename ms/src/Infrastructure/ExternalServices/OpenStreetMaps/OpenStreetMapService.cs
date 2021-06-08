@@ -22,7 +22,7 @@ namespace Infrastructure.ExternalServices.OpenStreetMaps
             _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("andrani", "1.0"));
             _logger = logger;
         }
-        public async Task<GeoResponseMessage> CompleteCoordinatesAsync(GeoRequestMessage request)
+        public async Task<Coordinates> CompleteCoordinatesAsync(Address request)
         {
             var builder = new UriBuilder(@"https://nominatim.openstreetmap.org/search");
             var query = HttpUtility.ParseQueryString(builder.Query);
@@ -41,14 +41,11 @@ namespace Infrastructure.ExternalServices.OpenStreetMaps
 
             OpenStreetMapsResponse res2 = JsonSerializer.Deserialize<List<OpenStreetMapsResponse>>(res)[0];
 
-            GeoResponseMessage result = new GeoResponseMessage()
+            Coordinates result = new Coordinates()
             {
-                Id = request.Id,
                 Latitude = res2.Latitude,
                 Longitude = res2.Longitude
             };
-
-
 
             return result;
         }

@@ -1,9 +1,9 @@
-﻿using Application.Interfaces.Services;
+﻿using Application.Features.GeoRequest.Responses;
 
 namespace Application.Interfaces.MessageQueue
 {
     public interface IResponseQueueClient
     {
-        void Send(GeoResponseMessage request);
+        void Send(GetCoordinatesFromDirectionResponse request);
     }
 }

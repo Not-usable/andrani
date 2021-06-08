@@ -1,8 +1,7 @@
-﻿namespace Application.Interfaces.Services
+﻿namespace Domain.Entities
 {
-    public class GeoRequestMessage
+    public class Address
     {
-        public int Id { get; set; }
         public string Street { get; set; }
         public int Number { get; set; }
         public string City { get; set; }

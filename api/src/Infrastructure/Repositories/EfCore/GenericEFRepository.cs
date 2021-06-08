@@ -186,6 +186,15 @@ namespace Infrastructure.Repository.EfCore
             return newEntry.Entity;
         }
 
+        public virtual async Task<T> UpdateAsync(T entity)
+        {
+            var entry = Context.Entry(entity);
+            DbSet.Attach(entity);
+            entry.State = EntityState.Modified;
+            await Context.SaveChangesAsync();
+            return entry.Entity;
+        }
+
         public async Task<int> SaveChangesAsync()
         {
             return await Context.SaveChangesAsync();

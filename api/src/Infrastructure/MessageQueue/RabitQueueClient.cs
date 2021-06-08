@@ -2,7 +2,6 @@
 using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
-using Application.Interfaces.Services;
 using Application.Interfaces.MessageQueue;
 
 namespace Infrastructure.MessageQueue

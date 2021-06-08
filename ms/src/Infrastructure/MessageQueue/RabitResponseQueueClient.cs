@@ -4,16 +4,18 @@ using System.Text;
 using System.Text.Json;
 using Application.Interfaces.Services;
 using Application.Interfaces.MessageQueue;
+using Application.Features.GeoRequest.Responses;
 
 namespace Infrastructure.MessageQueue
 {
     public class RabitResponseQueueClient : IResponseQueueClient
     {
-        public void Send(GeoResponseMessage request)
+        public void Send(GetCoordinatesFromDirectionResponse request)
         {
             var factory = new ConnectionFactory() { HostName = "my-rabbit" };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
+
             channel.QueueDeclare(queue: "geo-queue-response",
                                  durable: false,
                                  exclusive: false,

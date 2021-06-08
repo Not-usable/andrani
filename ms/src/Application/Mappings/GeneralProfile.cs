@@ -8,10 +8,8 @@ namespace Application.Mappings
     {
         public GeneralProfile()
         { 
-            CreateMap<CreateGeoRequestCommand, Domain.Entities.GeoRequest>();
-
-            CreateMap<Domain.Entities.GeoRequest, GeoRequestCreatedResponse>();
-            CreateMap<Domain.Entities.GeoRequest, GeoRequestResponse>();
+            CreateMap<GetCoordinatesFromDirectionsCommand, Domain.Entities.Address>();
+            CreateMap<Domain.Entities.Coordinates, GetCoordinatesFromDirectionResponse>();
         }
     }
 }

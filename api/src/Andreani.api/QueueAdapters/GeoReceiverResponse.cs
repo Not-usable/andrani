@@ -1,6 +1,7 @@
-﻿using Application.Interfaces.Repositories;
-using Application.Interfaces.Services;
-using Infrastructure.MessageQueue;
+﻿using Application.Features.GeoRequest.Commands;
+using Application.Interfaces.MessageQueue;
+using Application.Interfaces.Repositories;
+using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
@@ -17,14 +18,12 @@ namespace Andreani.QueueAdapters
         private IModel _channel;
         private IConnection _connection;
         private readonly ILogger _logger;
-        private readonly IGeoService _service;
-        private readonly IGeoRequestRepository _repository;
+        private readonly IMediator _mediator;
 
-        public GeoReceiverResponse(ILogger<GeoReceiverResponse> logger, IGeoService service, IGeoRequestRepository repository)
+        public GeoReceiverResponse(ILogger<GeoReceiverResponse> logger, IMediator mediator)
         {
             _logger = logger;
-            _service = service;
-            _repository = repository;
+            _mediator = mediator;
             InitializeRabbitMqListener();
         }
 
@@ -52,12 +51,9 @@ namespace Andreani.QueueAdapters
                 _logger.LogWarning("received-response: " + content);
 
                 //var updateCustomerFullNameModel = JsonConvert.DeserializeObject<UpdateCustomerFullNameModel>(content);
-                var req = JsonSerializer.Deserialize<GeoResponseMessage>(content);
+                var req = JsonSerializer.Deserialize<UpdateCoordinatesGeoRequestCommand>(content);
 
-                var reg = _repository.Find(req.Id);
-                reg.Latitude = req.Latitude;
-                reg.Longitude = req.Longitude;
-                _repository.Update(reg);
+                await _mediator.Send(req);
 
                 //HandleMessage(updateCustomerFullNameModel);
 

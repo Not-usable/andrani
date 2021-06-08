@@ -101,6 +101,13 @@ namespace Application.Interfaces.Repositories
         Task<T> AddAsync(T entity);
 
         /// <summary>
+        /// UpdateAsync
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        Task<T> UpdateAsync(T entity);
+
+        /// <summary>
         /// SaveChangesAsync
         /// </summary>
         /// <returns></returns>
